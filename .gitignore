@@ -1,2 +1,6 @@
 rtf-parser/.build/*
 rtf-parser/macOS/rtf-parser.dSYM*
+rtf-parser/.vs/*
+rtf-parser/rtf-parser/x64/Release/*
+rtf-parser/x64/Release/rtf-parser.lib
+rtf-parser/x64/Release/rtf-parser.exp
