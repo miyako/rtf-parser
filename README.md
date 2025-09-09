@@ -11,3 +11,24 @@
 CLI tool to extract text from RTF
 
 **acknowledgements**: https://github.com/yanxijian/LibRtf
+
+## usage
+
+```
+rtf-parser -i example.rtf -o example.json
+
+ -i path    : document to parse
+ -o path    : text output (default=stdout)
+ -          : use stdin for input
+ -r         : raw text output (default=json)
+ -t         : basic html tags (default=no)
+```
+
+## output (JSON)
+
+```
+{
+    "type: "rtf",
+    "text": "body"
+}
+```
