@@ -9,3 +9,5 @@
  
 # rtf-parser
 CLI tool to extract text from RTF
+
+**acknowledgements**: https://github.com/yanxijian/LibRtf
