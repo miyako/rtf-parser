@@ -4,3 +4,8 @@ rtf-parser/.vs/*
 rtf-parser/rtf-parser/x64/Release/*
 rtf-parser/x64/Release/rtf-parser.lib
 rtf-parser/x64/Release/rtf-parser.exp
+rtf-parser/include/librtf.h
+rtf-parser/pdfium-parser.vcxproj
+rtf-parser/pdfium-parser.vcxproj.filters
+rtf-parser/rtf-parser/main.cpp
+rtf-parser/rtf-parser/rtf-parser.h

@@ -20,21 +20,15 @@
 #ifndef ___LIBFTF_H___
 #define ___LIBFTF_H___
 
-// hmm, 
-#ifdef _WIN32
-	#define __attribute__(x)
-#endif // _WIN32
-
-#ifndef LIBRTF_VERSION
-	#define LIBRTF_VERSION 1
-#endif // LIBRTF_VERSION
-
 #ifdef __cplusplus
 
 // #include "librtf_cpp.h"
 
 #endif // __cplusplus
 
+#ifndef LIBRTF_VERSION
+	#define LIBRTF_VERSION 1
+#endif // LIBRTF_VERSION
 
 #include "textproc.h"
 
@@ -64,26 +58,11 @@ extern void         rtf_process( source * src, processor * proc, observer * log 
 
 // Functions for creating rtf output.
 __attribute__ ((visibility("default")))
-extern processor *  create_rtf_processor( output * out );
+extern processor *  create_rtf_processor( output * out  );
 
 __attribute__ ((visibility("default")))
 extern void         destroy_rtf_processor( processor * proc );
 
 
-#ifndef LIBRTF_DISABLE_C_EXT
-
-//! Initialize processor source as stream reader.
-extern void rtf_src_stream_init( source * src, FILE * stream );
-extern void rtf_src_stream_free( source * src );
-
-//! Initialize observer as stream output.
-extern void rtf_log_stream_init( observer * log, FILE * stream );
-extern void rtf_log_stream_free( observer * log );
-
-//! Initialize observer to /dev/null
-extern void rtf_log_null_init( observer * log );
-extern void rtf_log_null_free( observer * log );
-
-#endif // LIBRTF_DISABLE_C_EXT
 
 #endif /// ___LIBFTF_H___

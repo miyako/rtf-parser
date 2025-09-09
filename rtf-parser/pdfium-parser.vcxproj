@@ -161,7 +161,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>include;include\libxml2;include\libxml2\libxml</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <DisableSpecificWarnings>4819;4273</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4819;4273;4474;4250</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -8,10 +8,16 @@
 #include <string>
 #include <chrono>
 
+#ifdef _WIN32
+#include "windows.h"
+#endif
+
 #include "librtf.h"
 #include "RtfReader.h"
 
+#ifdef __APPLE__
 extern "C" int rtf_process(__source* src, __processor* proc, __observer* obs);
+#endif
 
 #include <cstdio>
 #include <cstdlib>
