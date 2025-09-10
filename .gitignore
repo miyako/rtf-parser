@@ -9,3 +9,4 @@ rtf-parser/pdfium-parser.vcxproj
 rtf-parser/pdfium-parser.vcxproj.filters
 rtf-parser/rtf-parser/main.cpp
 rtf-parser/rtf-parser/rtf-parser.h
+rtf-parser/examples/*
