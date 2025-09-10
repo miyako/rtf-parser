@@ -16,7 +16,7 @@
 #include "RtfReader.h"
 
 #ifdef __APPLE__
-extern "C" int rtf_process(__source* src, __processor* proc, __observer* obs);
+//extern "C" int rtf_process(__source* src, __processor* proc, __observer* obs);
 #endif
 
 #include <cstdio>
