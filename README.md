@@ -22,7 +22,6 @@ rtf-parser -i example.rtf -o example.json
  -o path    : text output (default=stdout)
  -          : use stdin for input
  -r         : raw text output (default=json)
- -t         : basic html tags (default=no)
 ```
 
 ## output (JSON)
