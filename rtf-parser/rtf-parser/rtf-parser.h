@@ -10,9 +10,12 @@
 
 #ifdef _WIN32
 #include "windows.h"
+#include "librtf (windows).h"
+#else
+#include "librtf.h"
 #endif
 
-#include "librtf.h"
+
 #include "RtfReader.h"
 
 #ifdef __APPLE__
