@@ -16,6 +16,8 @@ static void usage(void)
     fprintf(stderr, " %c          :\n", '-' , "use stdin for input");
     fprintf(stderr, " -%c         : %s\n", 'r' , "raw text output (default=json)");
     fprintf(stderr, " %c          :\n", 't' , "basic html tags (default=no)");
+//    fprintf(stderr, " -%c         : %s\n", 'c' , "ansi codepage (default=1252)");
+//    fprintf(stderr, " -%c         : %s\n", 'l' , "use librtf (default=platform)");
     exit(1);
 }
 
@@ -69,9 +71,12 @@ int getopt(int argc, OPTARG_T *argv, OPTARG_T opts) {
     }
     return(c);
 }
-#define ARGS (OPTARG_T)L"i:o:-rht"
+#define ARGS (OPTARG_T)L"i:o:-rhtcl"
+#define _atoi _wtoi
 #else
-#define ARGS "i:o:-rht"
+#define HWND char*
+#define ARGS "i:o:-rhtcl"
+#define _atoi atoi
 #endif
 
 struct Document {
@@ -94,6 +99,49 @@ static void document_to_json(Document& document, std::string& text, bool rawText
     }
 }
 
+#if WITH_NATIVE_RTF_CONVERT
+static void rtf_to_text_platform(HWND hwnd, std::string& rtf, std::string& text) {
+#ifdef _WIN32
+    
+    SETTEXTEX st = {};
+    st.flags = ST_DEFAULT;
+    st.codepage = CP_ACP;
+    SendMessage(hwnd, EM_SETTEXTEX, (WPARAM)&st, (LPARAM)rtf.c_str());
+    
+    int len = GetWindowTextLength(hwnd);
+    //int len = SendMessage(hwnd, WM_GETTEXTLENGTH, 0, 0);
+    
+    std::vector<uint16_t> buf((len + 1));
+    GetWindowText(hwnd,(LPWSTR)buf.data(), buf.size());
+    
+    utf16_to_utf8((const uint8_t *)buf.data(), buf.size(), text);
+    /*
+     GETTEXTEX gt = {};
+     gt.cb = buf.size();
+     gt.flags = GT_USECRLF;
+     gt.codepage = CP_UTF8;
+     SendMessage(hwnd, EM_GETTEXTEX, (WPARAM)&gt, (LPARAM)buf.data());
+     */
+    
+    // text = (const char *)buf.data();
+#else
+    
+    NSData *src = [[NSData alloc]initWithBytes:rtf.c_str() length:rtf.length()];
+    if(src) {
+        NSError *error = nil;
+        NSAttributedString *attrStr = [[NSAttributedString alloc] initWithData:src
+                                                                       options:@{NSDocumentTypeDocumentOption: NSRTFTextDocumentType}
+                                                            documentAttributes:nil
+                                                                         error:&error];
+        if (!error) {
+            NSString *u8 = [attrStr string];
+            text = (const char *)[u8 UTF8String];
+        }
+    }
+#endif
+}
+#endif
+
 int main(int argc, OPTARG_T argv[]) {
         
     const OPTARG_T input_path  = NULL;
@@ -106,6 +154,45 @@ int main(int argc, OPTARG_T argv[]) {
     bool rawText = false;
     OPTARG_T password = NULL;
     bool basicTags = false;
+    bool usePlatform = true;
+    
+    int codepage = 1252;
+    
+#if WITH_NATIVE_RTF_CONVERT
+    HWND hwnd = NULL;
+
+#ifdef _WIN32
+
+    //HMODULE hmodule = LoadLibrary(L"msftedit.dll");
+    HMODULE hmodule = LoadLibrary(L"Riched20.dll");
+
+    if (hmodule)
+    {
+        /*
+        INITCOMMONCONTROLSEX icex = {};
+        icex.dwSize = sizeof(icex);
+        icex.dwICC = ICC_WIN95_CLASSES;
+        InitCommonControlsEx(&icex);
+        */
+       
+        hwnd = CreateWindowExW(
+            0, L"RichEdit20W", nullptr,
+            WS_CHILD | ES_MULTILINE,
+            0, 0, 0, 0,
+            HWND_MESSAGE, // message-only parent works with RichEdit 2.0
+            nullptr,
+            GetModuleHandle(nullptr),
+            nullptr);
+        /*
+        if (hwnd)
+        {
+            DWORD err = GetLastError();
+            std::cerr << "CreateWindowEx" << err << std::endl;
+        }
+        */
+    }
+#endif
+#endif
     
     while ((ch = getopt(argc, argv, ARGS)) != -1){
         switch (ch){
@@ -132,6 +219,12 @@ int main(int argc, OPTARG_T argv[]) {
                 break;
             case 't':
                 basicTags = true;
+                break;
+            case 'l':
+                usePlatform = false;
+                break;
+            case 'c':
+                codepage = _atoi(optarg);
                 break;
             case 'h':
             default:
@@ -163,10 +256,14 @@ int main(int argc, OPTARG_T argv[]) {
 //    std::ostringstream dummy;
 //    std::cerr.rdbuf(dummy.rdbuf());
     
-    if(basicTags){
-        RtfReader::RtfString2HtmlString(outstring, instring);
+    if(usePlatform){
+        rtf_to_text_platform(hwnd, instring, outstring);
     }else{
-        RtfReader::RtfString2TextString(outstring, instring);
+        if(basicTags){
+            RtfReader::RtfString2HtmlString(outstring, instring);
+        }else{
+            RtfReader::RtfString2TextString(outstring, instring);
+        }
     }
     
 //    std::cerr.rdbuf(old_buf);
@@ -188,6 +285,19 @@ int main(int argc, OPTARG_T argv[]) {
     }
 
     end:
+    
+#if WITH_NATIVE_RTF_CONVERT
+#if defined(_WIN32)
+    if (hwnd) {
+        DestroyWindow(hwnd);
+        hwnd = NULL;
+    }
+    if (hmodule) {
+        FreeLibrary(hmodule);
+        hmodule = NULL;
+    }
+#endif
+#endif
     
     return 0;
 }

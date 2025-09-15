@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D11461572E78C9E400FBF71E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D11461562E78C9E400FBF71E /* CoreFoundation.framework */; };
+		D11461592E78C9EA00FBF71E /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D11461582E78C9EA00FBF71E /* CoreServices.framework */; };
+		D114615B2E78C9EF00FBF71E /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D114615A2E78C9EF00FBF71E /* AppKit.framework */; };
 		D157F3122E612DD500DF46D3 /* libjsoncpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D157F30C2E612DD500DF46D3 /* libjsoncpp.a */; };
 		D1BC0A702E703CA700D0C045 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D1BC0A6F2E703CA700D0C045 /* libz.tbd */; };
 		D1D419872E704A8700BD23ED /* librtf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D419822E70433200BD23ED /* librtf.a */; };
@@ -26,6 +29,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D11461562E78C9E400FBF71E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		D11461582E78C9EA00FBF71E /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		D114615A2E78C9EF00FBF71E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		D157F30C2E612DD500DF46D3 /* libjsoncpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjsoncpp.a; path = a/libjsoncpp.a; sourceTree = "<group>"; };
 		D16478942E611F7700FC9914 /* rtf-parser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "rtf-parser"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D164789E2E61216B00FC9914 /* rtf-config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "rtf-config.xcconfig"; sourceTree = "<group>"; };
@@ -38,6 +44,10 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D16478962E611F7700FC9914 /* rtf-parser */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+				html.cpp = sourcecode.cpp.cpp;
+				main.cpp = sourcecode.cpp.objcpp;
+			};
 			path = "rtf-parser";
 			sourceTree = "<group>";
 		};
@@ -48,6 +58,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D114615B2E78C9EF00FBF71E /* AppKit.framework in Frameworks */,
+				D11461592E78C9EA00FBF71E /* CoreServices.framework in Frameworks */,
+				D11461572E78C9E400FBF71E /* CoreFoundation.framework in Frameworks */,
 				D1D4198A2E704B2C00BD23ED /* librtfcpp.a in Frameworks */,
 				D1D419872E704A8700BD23ED /* librtf.a in Frameworks */,
 				D1BC0A702E703CA700D0C045 /* libz.tbd in Frameworks */,
@@ -61,6 +74,9 @@
 		D157F30B2E612DD500DF46D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D114615A2E78C9EF00FBF71E /* AppKit.framework */,
+				D11461582E78C9EA00FBF71E /* CoreServices.framework */,
+				D11461562E78C9E400FBF71E /* CoreFoundation.framework */,
 				D1D419882E704AEB00BD23ED /* librtf.dylib */,
 				D1D419822E70433200BD23ED /* librtf.a */,
 				D1D419832E70433200BD23ED /* librtfcpp.a */,

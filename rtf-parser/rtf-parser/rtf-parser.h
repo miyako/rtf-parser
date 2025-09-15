@@ -8,13 +8,25 @@
 #include <string>
 #include <chrono>
 
+#define WITH_NATIVE_RTF_CONVERT 1
+
 #ifdef _WIN32
 #include "windows.h"
 #include "librtf (windows).h"
+#include <richedit.h>
+#include <commctrl.h>
+#include <tchar.h>
 #else
 #include "librtf.h"
 #endif
 
+#ifdef __APPLE__
+#include <CoreFoundation/CoreFoundation.h>
+#if WITH_NATIVE_RTF_CONVERT
+#include <Foundation/Foundation.h>
+#include <AppKit/AppKit.h>
+#endif
+#endif
 
 #include "RtfReader.h"
 
