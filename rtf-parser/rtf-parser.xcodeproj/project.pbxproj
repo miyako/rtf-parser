@@ -29,14 +29,10 @@
 		D157F30C2E612DD500DF46D3 /* libjsoncpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjsoncpp.a; path = a/libjsoncpp.a; sourceTree = "<group>"; };
 		D16478942E611F7700FC9914 /* rtf-parser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "rtf-parser"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D164789E2E61216B00FC9914 /* rtf-config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "rtf-config.xcconfig"; sourceTree = "<group>"; };
-		D1BC0A692E703C9600D0C045 /* librevenge-generators-0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "librevenge-generators-0.0.a"; path = "a/librevenge-generators-0.0.a"; sourceTree = "<group>"; };
-		D1BC0A6A2E703C9600D0C045 /* librevenge-stream-0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "librevenge-stream-0.0.a"; path = "a/librevenge-stream-0.0.a"; sourceTree = "<group>"; };
-		D1BC0A6B2E703C9600D0C045 /* librevenge-0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "librevenge-0.0.a"; path = "a/librevenge-0.0.a"; sourceTree = "<group>"; };
 		D1BC0A6F2E703CA700D0C045 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D1D419822E70433200BD23ED /* librtf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librtf.a; path = a/librtf.a; sourceTree = "<group>"; };
 		D1D419832E70433200BD23ED /* librtfcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librtfcpp.a; path = a/librtfcpp.a; sourceTree = "<group>"; };
 		D1D419882E704AEB00BD23ED /* librtf.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librtf.dylib; path = dylib/librtf.dylib; sourceTree = "<group>"; };
-		D1D4198B2E704C9F00BD23ED /* convert.o */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; name = convert.o; path = a/convert.o; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -65,14 +61,10 @@
 		D157F30B2E612DD500DF46D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D1D4198B2E704C9F00BD23ED /* convert.o */,
 				D1D419882E704AEB00BD23ED /* librtf.dylib */,
 				D1D419822E70433200BD23ED /* librtf.a */,
 				D1D419832E70433200BD23ED /* librtfcpp.a */,
 				D1BC0A6F2E703CA700D0C045 /* libz.tbd */,
-				D1BC0A6B2E703C9600D0C045 /* librevenge-0.0.a */,
-				D1BC0A692E703C9600D0C045 /* librevenge-generators-0.0.a */,
-				D1BC0A6A2E703C9600D0C045 /* librevenge-stream-0.0.a */,
 				D157F30C2E612DD500DF46D3 /* libjsoncpp.a */,
 			);
 			name = Frameworks;
@@ -290,7 +282,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D164789E2E61216B00FC9914 /* rtf-config.xcconfig */;
 			buildSettings = {
-				ARCHS = x86_64;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y69CWUC25B;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -309,7 +301,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D164789E2E61216B00FC9914 /* rtf-config.xcconfig */;
 			buildSettings = {
-				ARCHS = x86_64;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y69CWUC25B;
 				ENABLE_HARDENED_RUNTIME = YES;
