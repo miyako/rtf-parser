@@ -15,7 +15,7 @@ static void usage(void)
     fprintf(stderr, " -%c path    : %s\n", 'o' , "text output (default=stdout)");
     fprintf(stderr, " %c          :\n", '-' , "use stdin for input");
     fprintf(stderr, " -%c         : %s\n", 'r' , "raw text output (default=json)");
-    fprintf(stderr, " %c          :\n", 't' , "basic html tags (default=no)");
+    //fprintf(stderr, " %c          :\n", 't' , "basic html tags (default=no)");
 //    fprintf(stderr, " -%c         : %s\n", 'c' , "ansi codepage (default=1252)");
 //    fprintf(stderr, " -%c         : %s\n", 'l' , "use librtf (default=platform)");
     exit(1);
@@ -99,6 +99,33 @@ static void document_to_json(Document& document, std::string& text, bool rawText
     }
 }
 
+static void utf16_to_utf8(const uint8_t* u16data, size_t u16size, std::string& u8) {
+
+#ifdef __APPLE__
+    CFStringRef str = CFStringCreateWithCharacters(kCFAllocatorDefault, (const UniChar*)u16data, u16size);
+    if (str) {
+        size_t size = CFStringGetMaximumSizeForEncoding(CFStringGetLength(str), kCFStringEncodingUTF8) + sizeof(uint8_t);
+        std::vector<uint8_t> buf(size + 1);
+        CFIndex len = 0;
+        CFStringGetBytes(str, CFRangeMake(0, CFStringGetLength(str)), kCFStringEncodingUTF8, 0, true, (UInt8*)buf.data(), buf.size(), &len);
+        u8 = (const char*)buf.data();
+        CFRelease(str);
+    }
+    else {
+        u8 = "";
+    }
+#else
+    int len = WideCharToMultiByte(CP_UTF8, 0, (LPCWSTR)u16data, u16size, NULL, 0, NULL, NULL);
+    if (len) {
+        std::vector<uint8_t> buf(len + 1);
+        WideCharToMultiByte(CP_UTF8, 0, (LPCWSTR)u16data, u16size, (LPSTR)buf.data(), buf.size(), NULL, NULL);
+        u8 = (const char*)buf.data();
+    }
+    else {
+        u8 = "";
+    }
+#endif
+}
 #if WITH_NATIVE_RTF_CONVERT
 static void rtf_to_text_platform(HWND hwnd, std::string& rtf, std::string& text) {
 #ifdef _WIN32
