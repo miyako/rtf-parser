@@ -6,6 +6,7 @@
 
 * the source code of this CLI tool is licensed under the MIT license.
 * see [librtf](https://librtf.sourceforge.net) for the licensing of **librtf** (LGPL-2.1).
+* **note**: `librtf` is no longer used. 
  
 # rtf-parser
 CLI tool to extract text from RTF
