@@ -30,15 +30,11 @@
 
 #include "RtfReader.h"
 
-#ifdef __APPLE__
-//extern "C" int rtf_process(__source* src, __processor* proc, __observer* obs);
-#endif
-
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 
-#define BUFLEN 1024
+#define BUFLEN 4096
 
 #ifdef __GNUC__
 #define _fopen fopen

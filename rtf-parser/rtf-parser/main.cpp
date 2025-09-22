@@ -234,11 +234,12 @@ int main(int argc, OPTARG_T argv[]) {
                 break;
             case '-':
             {
-                _fseek(stdin, 0, SEEK_END);
-                size_t len = (size_t)_ftell(stdin);
-                _fseek(stdin, 0, SEEK_SET);
-                rtf_data.resize(len);
-                fread(rtf_data.data(), 1, rtf_data.size(), stdin);
+                std::vector<uint8_t> buf(BUFLEN);
+                size_t n;
+                
+                while ((n = fread(buf.data(), 1, buf.size(), stdin)) > 0) {
+                    pdf_data.insert(pdf_data.end(), buf.begin(), buf.begin() + n);
+                }
             }
                 break;
             case 'r':
@@ -279,10 +280,6 @@ int main(int argc, OPTARG_T argv[]) {
     std::string instring((const char *)rtf_data.data(), rtf_data.size());
     std::string outstring;
     
-//    std::streambuf* old_buf = std::cerr.rdbuf();
-//    std::ostringstream dummy;
-//    std::cerr.rdbuf(dummy.rdbuf());
-    
     if(usePlatform){
         rtf_to_text_platform(hwnd, instring, outstring);
     }else{
@@ -293,8 +290,6 @@ int main(int argc, OPTARG_T argv[]) {
         }
     }
     
-//    std::cerr.rdbuf(old_buf);
-
     Document document;
     document.type = "rtf";
     document.text = outstring;
