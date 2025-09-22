@@ -238,7 +238,7 @@ int main(int argc, OPTARG_T argv[]) {
                 size_t n;
                 
                 while ((n = fread(buf.data(), 1, buf.size(), stdin)) > 0) {
-                    pdf_data.insert(pdf_data.end(), buf.begin(), buf.begin() + n);
+                    rtf_data.insert(rtf_data.end(), buf.begin(), buf.begin() + n);
                 }
             }
                 break;
