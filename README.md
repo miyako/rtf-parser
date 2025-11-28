@@ -19,3 +19,13 @@ text extractor for rtf documents
  -          : use stdin for input
  -r         : raw text output (default=json)
 ```
+
+## JSON
+
+|Property|Level|Type|Description|
+|-|-|-|-|
+|document|0|||
+|document.type|0|Text||
+|document.pages|0|Array||
+|document.pages[].paragraphs|1|Array||
+|document.pages[].paragraphs[].text|2|Text||
