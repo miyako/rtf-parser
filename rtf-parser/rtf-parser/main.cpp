@@ -13,9 +13,9 @@ static void usage(void)
     fprintf(stderr, "text extractor for rtf documents\n\n");
     fprintf(stderr, " -%c path    : %s\n", 'i' , "document to parse");
     fprintf(stderr, " -%c path    : %s\n", 'o' , "text output (default=stdout)");
-    fprintf(stderr, " %c          :\n", '-' , "use stdin for input");
+    fprintf(stderr, " %c          : %s\n", '-' , "use stdin for input");
     fprintf(stderr, " -%c         : %s\n", 'r' , "raw text output (default=json)");
-    //fprintf(stderr, " %c          :\n", 't' , "basic html tags (default=no)");
+    //fprintf(stderr, " %c          : %s\n", 't' , "basic html tags (default=no)");
 //    fprintf(stderr, " -%c         : %s\n", 'c' , "ansi codepage (default=1252)");
 //    fprintf(stderr, " -%c         : %s\n", 'l' , "use librtf (default=platform)");
     exit(1);
@@ -91,7 +91,13 @@ static void document_to_json(Document& document, std::string& text, bool rawText
     }else{
         Json::Value documentNode(Json::objectValue);
         documentNode["type"] = document.type;
-        documentNode["text"] = document.text;
+        documentNode["pages"] = Json::arrayValue;
+        Json::Value pageNode(Json::objectValue);
+        pageNode["paragraphs"] = Json::arrayValue;
+        Json::Value paragraphNode(Json::objectValue);
+        paragraphNode["text"] = document.text;
+        pageNode["paragraphs"].append(paragraphNode);
+        documentNode["pages"].append(pageNode);
         
         Json::StreamWriterBuilder writer;
         writer["indentation"] = "";
