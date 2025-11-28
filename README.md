@@ -6,17 +6,13 @@
 
 * the source code of this CLI tool is licensed under the MIT license.
 * see [librtf](https://librtf.sourceforge.net) for the licensing of **librtf** (LGPL-2.1).
-* **note**: `librtf` is no longer used. 
+* **note**: [yanxijian/LibRtf](https://github.com/yanxijian/LibRtf) is no longer used. 
  
 # rtf-parser
 CLI tool to extract text from RTF
 
-**acknowledgements**: https://github.com/yanxijian/LibRtf
-
-## usage
-
 ```
-rtf-parser -i example.rtf -o example.json
+text extractor for rtf documents
 
  -i path    : document to parse
  -o path    : text output (default=stdout)
@@ -24,11 +20,12 @@ rtf-parser -i example.rtf -o example.json
  -r         : raw text output (default=json)
 ```
 
-## output (JSON)
+## JSON
 
-```
-{
-    "type: "rtf",
-    "text": "body"
-}
-```
+|Property|Level|Type|Description|
+|-|-|-|-|
+|document|0|||
+|document.type|0|Text||
+|document.pages|0|Array||
+|document.pages[].paragraphs|1|Array||
+|document.pages[].paragraphs[].text|2|Text||
